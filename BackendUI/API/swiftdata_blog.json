@@ -1,0 +1,426 @@
+{
+  "title": "How to Use SwiftData Outside SwiftUI",
+  "content": [
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Because MV is crappy for anything complex"
+    },
+    {
+      "type": "image",
+      "url": "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd974571c-6643-4285-9d61-e6f128e551a0_800x533.jpeg",
+      "caption": "Photo by benjamin lehman on Unsplash"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "SwiftData."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "The hip, all-new persistence framework, that totally isn't just a wrapper on CoreData (shh!)"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Resplendent with property wrappers such as @Environment(\\.modelContext) and @Query, SwiftData is convenient for accessing and modifying persistent data directly from your SwiftUI views!"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "This is great for the Gen Zs who grew up with MV architecture, but what about us boomers still clutching onto MVVM, who insist on unit testing our crufty old code?"
+    },
+    {
+      "type": "image",
+      "url": "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fec8ee53f-a78f-4c76-9ca8-788a5a853a9f_480x270.png",
+      "caption": "I can't just delete these failing tests? Ok, boomer."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "For a company where 79% of its binaries don't contain a line of SwiftUI, Apple is very insistent they know better than us about architecting SwiftUI apps."
+    },
+    {
+      "type": "quote",
+      "text": "I've ranted before about Apple's resurrection of the massive view controller problem. This is a continuation of the issues introduced by the navigation APIs \u2014 they encourage devs to tightly couple navigation & persistence logic to UI code."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Directly manipulating data from SwiftUI views is a recipe for linguine. An udonic plague. A pasta disaster. In a non-trivial project, factoring out your data access is critical for maintainability."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Fortunately, it's actually quite simple to use SwiftData *outside* the context of SwiftUI views."
+    },
+    {
+      "type": "divider",
+      "text": "SwiftData outside SwiftUI"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Feel free to check out my open-source repo, [NoSwiftDataNoUI](https://github.com/jacobs-dev/NoSwiftDataNoUI), now."
+    },
+    {
+      "type": "quote",
+      "text": "It's\u2026 it's like a Bob Marley joke."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "The app is dead basic, simply a list of stored Users. If there are no users stored, the app randomly generates 10,000 users."
+    },
+    {
+      "type": "image",
+      "url": "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F520dab16-c268-43da-9e12-1d7320501f07_800x369.png"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "The Model"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "What you see is what you get with our @Model object. There are no complex relationships here."
+    },
+    {
+      "type": "codeBlock",
+      "code": "@Model\nfinal class User {\n    @Attribute(.unique) let id: UUID\n    let firstName: String\n    let surname: String\n    let age: Int\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Creating our Database"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Our basic database service can be created with just a few lines:"
+    },
+    {
+      "type": "codeBlock",
+      "code": "final class UserDatabase {\n    \n    let container: ModelContainer\n    \n    init() throws {\n        container = try ModelContainer(for: User.self)\n    }\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "This ModelContainer manages the underlying storage \u2014 by default, this is a SQLite file (default.store), but you can configure it to use an in-memory store when you're running unit tests:"
+    },
+    {
+      "type": "codeBlock",
+      "code": "init(useInMemoryStore: Bool = false) throws {\n    let configuration = ModelConfiguration(\n        for: User.self, \n        isStoredInMemoryOnly: useInMemoryStore\n    )\n    container = try ModelContainer(\n        for: User.self, \n        configurations: configuration\n    )\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "We can add this service to our view models via dependency injection; however in this really basic example I initialised it myself:"
+    },
+    {
+      "type": "codeBlock",
+      "code": "@Observable\nfinal class ContentViewModel {\n  \n    var users: [User] = []\n    private let database: UserDB\n\n    init() {\n        self.database = try! UserDB()\n    }\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Now that we've proven you can use SwiftData outside SwiftUI, I've succeeded in my goal."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "While I sip on this self-congratulatory Peroni, you can take 5. While you're waiting, follow me on [Twitter](https://twitter.com/JacobsTechTavern) if you like."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Let's reconvene back here when you'd like to learn how we can make use of our shiny new database."
+    },
+    {
+      "type": "divider",
+      "text": "CRUD Operations"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Let's begin implementing some standard CRUD operations on our UserDatabase."
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Create"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "The create method is pretty simple, but demonstrates a few important concepts:"
+    },
+    {
+      "type": "codeBlock",
+      "code": "func create(_ user: T) throws {\n    let context = ModelContext(container)\n    context.insert(user)\n    try context.save()\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Creating the ModelContext"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "We use the container to initialise a ModelContext."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "We want to create this ModelContext inline in the function, because it's not inherently thread-safe. Using a context as a stored property will incur lots of actor coordination overhead (just see how the compiler complains when using container.mainContext!)"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Why use a Context?"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "This ModelContext behaves similarly to the ManagedObjectContext in Core Data: it tracks the changes made to data objects in memory."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "These changes are committed \u2014 that is, saved \u2014 to the container's underlying data store with context.save(). You might ask, what's the point of this extra step?"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Consider this function, which behaves similarly, but creates a collection of User objects:"
+    },
+    {
+      "type": "codeBlock",
+      "code": "func create(_ users: [T]) throws {\n    let context = ModelContext(container)\n    for user in users {\n        context.insert(user)\n    }\n    try context.save()\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "If you're an avid reader of [Jacob's Tech Tavern](https://blog.jacobstechtavern.com), you'll know that there is a hierarchy of memory and storage which gets larger and slower with each layer down. Registers are the smallest, fastest, then there are successive levels of CPU cache that might be a few kB to several MB. Ultimately, you get to main memory (RAM) and persistent storage on disk, which is the slowest of all."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "If you wanted to insert 10,000 items, then performing blocking synchronous I/O with the disk for each item would be *extremely* slow."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "When we have a context, these 10,000 items inserted to the context may all be stored in the L2 cache, millimetres away from the CPU, before the commit step treks across the motherboard to store everything on disk."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "If there is far too much data in a transaction to store in the CPU caches, resource usage may spike and performance could be slow. Paul Hudson explains how to batch data when inserting lots at once, to send sensibly-sized chunks to disk at a time."
+    },
+    {
+      "type": "quote",
+      "text": "I put a little extra work into explaining this because the people that kept explaining the ManagedObjectContext as an 'intelligent scratchpad' set me back about 2 years."
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Generating Users"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Now we've got that out of the way, here's how I inserted 10,000 items (I created a convenience initialiser in the User that randomised all its properties)."
+    },
+    {
+      "type": "codeBlock",
+      "code": "private func generateUsers() throws {\n    let users = (0..<10_000).compactMap { _ in try User() }\n    try database.create(users)\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Update"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Good news! In SwiftData, insert is actually an **upsert**, so we can use the same method to update a user \u2014 if the ID matches an existing ID, it updates the existing model object, otherwise it creates a new object."
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Read"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "To read our data, we can invoke context.fetch() on our ModelContext. To call this, we need a FetchDescriptor."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "This is a little more complex than chucking a model into our context \u2014 we need to think about *what we want to fetch*. Really, as API designers, we should to think about what the *consumers of our service* might want to fetch."
+    },
+    {
+      "type": "codeBlock",
+      "code": "func read(predicate: Predicate<User>?,\n          sortDescriptors: SortDescriptor<User>...) throws -> [User] {\n    let context = ModelContext(container)\n    let fetchDescriptor = FetchDescriptor<User>(\n        predicate: predicate,\n        sortBy: sortDescriptors\n    )\n    return try context.fetch(fetchDescriptor)\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "We can pass in a predicate and sort descriptors to specify exactly what data we want, and how to sort this data. The call site will be able to include this information. This is a great place for a variadic parameter."
+    },
+    {
+      "type": "codeBlock",
+      "code": "private func fetchUsers() {\n    users = try? userDB.read(\n        predicate: #Predicate { $0.firstName == \"Jane\" },\n        sortDescriptors: SortDescriptor<User>(\\.surname), \n                         SortDescriptor<User>(\\.firstName)\n    )\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "#Predicate is a macro which allows you to choose which data to filter our from your database \u2014 returning all objects for which the closure expression evaluates to true."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "SortDescriptors determine how to sort the results \u2014 in this instance, ordering by the surname property of each object, followed by firstName as a secondary sort within each surname bracket."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "We can also invoke fetch(_: batchSize:) to chunk up our fetch and set a maximum number of model objects fetched from each round-trip disk I/O. You'll want to profile your own code to find whether this is needed, and determine the optimal batch size."
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Delete"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "If we want to delete anything, we can roll this bad boy:"
+    },
+    {
+      "type": "codeBlock",
+      "code": "func delete(_ user: User) throws {\n    let context = ModelContext(container)\n    let idToDelete = user.persistentModelID\n    try context.delete(model: User.self, where: #Predicate { user in\n        user.persistentModelID == idToDelete\n    })\n    try context.save()\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "SwiftData model objects, like their CoreData counterparts, are not inherently thread-safe. Therefore, to avoid any sendability snafus when invoking delete across concurrency domains, we should use the @Sendable property persistentModelID which exists on every SwiftData model object."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "We can use a #Predicate and ask the context to delete the model matching the specific ID, before committing the changes to disk with context.save()."
+    },
+    {
+      "type": "divider",
+      "text": "Refactoring"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "I took it upon myself to perform some Swift-fu to refactor the code using some protocols, extensions, and generics\u2014 you won't see this in a pure-SwiftUI app!"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Database protocol"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Firstly, for our top-level protocol, we don't necessarily want any SwiftData entities to be specified \u2014 this is a simple CRUD database, so can be implementation-agnostic."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "This means we can conform to the same protocol regardless of using Realm, SQLite, Core Data, SwiftData, or any of their friends."
+    },
+    {
+      "type": "codeBlock",
+      "code": "protocol Database<T> {\n    associatedtype T\n    func create(_ item: T) throws\n    func create(_ items: [T]) throws\n    func read(predicate: Predicate<T>?, \n              sortDescriptors: SortDescriptor<T>...) throws -> [T]\n    func update(_ item: T) throws\n    func delete(_ item: T) throws\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "SwiftDatabase protocol"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Now we can go one level down and produce a SwiftData-specific SwiftDatabase protocol, where the model type is a SwiftData PersistentModel type."
+    },
+    {
+      "type": "codeBlock",
+      "code": "protocol SwiftDatabase<T>: Database {\n    associatedtype T = PersistentModel\n    var container: ModelContainer { get }\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Protocol extensions"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "This means that we can convert all our above SwiftData operations into generic methods on a protocol extension."
+    },
+    {
+      "type": "codeBlock",
+      "code": "extension SwiftDatabase {\n    \n    func create<T: PersistentModel>(_ item: T) throws {\n        let context = ModelContext(container)\n        context.insert(item)\n        try context.save()\n    }\n\n    // do the same for all other operations ...\n}",
+      "language": "swift"
+    },
+    {
+      "type": "text",
+      "style": "subtitle",
+      "text": "Creating a Database"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "Now we have these in place, creating our UserDatabase \u2014 or any SwiftData database \u2014 takes a cool 5 lines of code."
+    },
+    {
+      "type": "codeBlock",
+      "code": "final class UserDB: SwiftDatabase {\n    \n    typealias T = User\n    \n    let container: ModelContainer\n    \n    init() throws {\n        container = try ModelContainer(for: User.self)\n    }\n}",
+      "language": "swift"
+    },
+    {
+      "type": "divider",
+      "text": "Conclusion"
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "I wrote this article after being inspired by someone on, I think it was either [Twitter](https://twitter.com/JacobsTechTavern) or LinkedIn."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "They were complaining how Apple only created SwiftData APIs for use in SwiftUI views, and I helpfully pointed out that it was absolutely possible to create them outside \u2014 Apple just doesn't like to make it obvious."
+    },
+    {
+      "type": "text",
+      "style": "body",
+      "text": "You're welcome, random stranger on the internet!"
+    },
+    {
+      "type": "image",
+      "url": "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc1be501e-69f9-401d-a55d-5bf493ac50fd_800x450.jpeg"
+    }
+  ]
+}

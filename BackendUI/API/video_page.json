@@ -1,0 +1,397 @@
+{
+  "title": "Video Library",
+  "content": [
+    {
+      "type": "navigationLink",
+      "label": [
+        {
+          "type": "stack",
+          "axis": "h",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "image",
+              "url": "https://assets.mixkit.co/videos/236/236-thumb-720-0.jpg",
+              "width": 160,
+              "height": 90,
+              "cornerRadius": 8
+            },
+            {
+              "type": "stack",
+              "axis": "v",
+              "spacing": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "style": "subtitle",
+                  "text": "Filling a cup of coffee"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Free \u2022 0:20 \u2022 \u2615\ufe0f"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Close-up pour of a white coffee cup.",
+                  "lineLimit": 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "destination": {
+        "title": "Filling a cup of coffee",
+        "content": [
+          {
+            "type": "videoPlayer",
+            "url": "https://assets.mixkit.co/videos/236/236-720.mp4",
+            "height": 220
+          },
+          {
+            "type": "text",
+            "style": "title",
+            "text": "Filling a cup of coffee"
+          },
+          {
+            "type": "text",
+            "style": "body",
+            "text": "Close-up pour of a white coffee cup."
+          }
+        ]
+      }
+    },
+    {
+      "type": "divider",
+      "text": ""
+    },
+    {
+      "type": "navigationLink",
+      "label": [
+        {
+          "type": "stack",
+          "axis": "h",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "image",
+              "url": "https://assets.mixkit.co/videos/32991/32991-thumb-720-0.jpg",
+              "width": 160,
+              "height": 90,
+              "cornerRadius": 8
+            },
+            {
+              "type": "stack",
+              "axis": "v",
+              "spacing": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "style": "subtitle",
+                  "text": "Time-lapse of city traffic at night"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Free \u2022 0:15 \u2022 \ud83c\udf07"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Night traffic streaks in the city.",
+                  "lineLimit": 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "destination": {
+        "title": "Time-lapse of city traffic at night",
+        "content": [
+          {
+            "type": "videoPlayer",
+            "url": "https://assets.mixkit.co/videos/32991/32991-720.mp4",
+            "height": 220
+          },
+          {
+            "type": "text",
+            "style": "title",
+            "text": "Time-lapse of city traffic at night"
+          },
+          {
+            "type": "text",
+            "style": "body",
+            "text": "Night traffic streaks in the city."
+          }
+        ]
+      }
+    },
+    {
+      "type": "divider",
+      "text": ""
+    },
+    {
+      "type": "navigationLink",
+      "label": [
+        {
+          "type": "stack",
+          "axis": "h",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "image",
+              "url": "https://assets.mixkit.co/videos/1442/1442-thumb-720-0.jpg",
+              "width": 160,
+              "height": 90,
+              "cornerRadius": 8
+            },
+            {
+              "type": "stack",
+              "axis": "v",
+              "spacing": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "style": "subtitle",
+                  "text": "City sunset in time-lapse"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Free \u2022 0:12 \u2022 \ud83c\udf06"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Warm sky over the skyline.",
+                  "lineLimit": 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "destination": {
+        "title": "City sunset in time-lapse",
+        "content": [
+          {
+            "type": "videoPlayer",
+            "url": "https://assets.mixkit.co/videos/1442/1442-720.mp4",
+            "height": 220
+          },
+          {
+            "type": "text",
+            "style": "title",
+            "text": "City sunset in time-lapse"
+          },
+          {
+            "type": "text",
+            "style": "body",
+            "text": "Warm sky over the skyline."
+          }
+        ]
+      }
+    },
+    {
+      "type": "divider",
+      "text": ""
+    },
+    {
+      "type": "navigationLink",
+      "label": [
+        {
+          "type": "stack",
+          "axis": "h",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "image",
+              "url": "https://assets.mixkit.co/videos/1184/1184-thumb-720-0.jpg",
+              "width": 160,
+              "height": 90,
+              "cornerRadius": 8
+            },
+            {
+              "type": "stack",
+              "axis": "v",
+              "spacing": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "style": "subtitle",
+                  "text": "Ocean waves hitting the rocks"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Free \u2022 0:10 \u2022 \ud83c\udf0a"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Waves rolling over rocky shore.",
+                  "lineLimit": 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "destination": {
+        "title": "Ocean waves hitting the rocks",
+        "content": [
+          {
+            "type": "videoPlayer",
+            "url": "https://assets.mixkit.co/videos/1184/1184-720.mp4",
+            "height": 220
+          },
+          {
+            "type": "text",
+            "style": "title",
+            "text": "Ocean waves hitting the rocks"
+          },
+          {
+            "type": "text",
+            "style": "body",
+            "text": "Waves rolling over rocky shore."
+          }
+        ]
+      }
+    },
+    {
+      "type": "divider",
+      "text": ""
+    },
+    {
+      "type": "navigationLink",
+      "label": [
+        {
+          "type": "stack",
+          "axis": "h",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "image",
+              "url": "https://assets.mixkit.co/videos/4075/4075-thumb-720-0.jpg",
+              "width": 160,
+              "height": 90,
+              "cornerRadius": 8
+            },
+            {
+              "type": "stack",
+              "axis": "v",
+              "spacing": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "style": "subtitle",
+                  "text": "Countryside meadow"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Free \u2022 0:12 \u2022 \ud83c\udf3f"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Green fields and a gentle breeze.",
+                  "lineLimit": 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "destination": {
+        "title": "Countryside meadow",
+        "content": [
+          {
+            "type": "videoPlayer",
+            "url": "https://assets.mixkit.co/videos/4075/4075-720.mp4",
+            "height": 220
+          },
+          {
+            "type": "text",
+            "style": "title",
+            "text": "Countryside meadow"
+          },
+          {
+            "type": "text",
+            "style": "body",
+            "text": "Green fields and a gentle breeze."
+          }
+        ]
+      }
+    },
+    {
+      "type": "divider",
+      "text": ""
+    },
+    {
+      "type": "navigationLink",
+      "label": [
+        {
+          "type": "stack",
+          "axis": "h",
+          "spacing": 8,
+          "children": [
+            {
+              "type": "image",
+              "url": "https://assets.mixkit.co/videos/41576/41576-thumb-720-0.jpg",
+              "width": 160,
+              "height": 90,
+              "cornerRadius": 8
+            },
+            {
+              "type": "stack",
+              "axis": "v",
+              "spacing": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "style": "subtitle",
+                  "text": "Mountain highway flyover"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Free \u2022 0:12 \u2022 \ud83c\udfde\ufe0f"
+                },
+                {
+                  "type": "text",
+                  "style": "caption",
+                  "text": "Road through a mountain range.",
+                  "lineLimit": 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "destination": {
+        "title": "Mountain highway flyover",
+        "content": [
+          {
+            "type": "videoPlayer",
+            "url": "https://assets.mixkit.co/videos/41576/41576-720.mp4",
+            "height": 220
+          },
+          {
+            "type": "text",
+            "style": "title",
+            "text": "Mountain highway flyover"
+          },
+          {
+            "type": "text",
+            "style": "body",
+            "text": "Road through a mountain range."
+          }
+        ]
+      }
+    }
+  ]
+}

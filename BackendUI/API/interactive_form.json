@@ -1,0 +1,63 @@
+{
+  "title": "Jacob's Tech Tavern Feedback",
+  "content": [
+    {
+      "type": "text",
+      "style": "title",
+      "text": "How was your time at Jacob's Tech Tavern?"
+    },
+    {
+      "type": "textInput",
+      "label": "Your Name",
+      "placeholder": "Enter your name",
+      "key": "name"
+    },
+    {
+      "type": "multipleChoice",
+      "question": "How would you rate your visit?",
+      "options": [
+        "Excellent",
+        "Good",
+        "Fair",
+        "Poor"
+      ],
+      "key": "rating"
+    },
+    {
+      "type": "textInput",
+      "label": "Tell us more about your stay",
+      "placeholder": "Free text\u2026",
+      "key": "freeText"
+    },
+    {
+      "type": "voiceNote",
+      "label": "Leave us a voice note",
+      "key": "voice"
+    },
+    {
+      "type": "photoUpload",
+      "label": "Send a selfie enjoying a pint",
+      "key": "photo"
+    },
+    {
+      "type": "mapLocation",
+      "label": "Which pub were you at? Tap the map to select.",
+      "initialRegion": {
+        "latitude": 51.5074,
+        "longitude": -0.1278,
+        "latitudeDelta": 0.15,
+        "longitudeDelta": 0.15
+      },
+      "key": "location"
+    },
+    {
+      "type": "submitButton",
+      "label": "Submit to Jacob's Tech Tavern",
+      "endpoint": "https://example.com/api/submit-feedback"
+    }
+  ]
+}
+
+
+
+
